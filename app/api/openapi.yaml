@@ -1,0 +1,121 @@
+openapi: 3.0.3
+
+info:
+  title: 3D ULPIN API
+  version: 0.1.0
+  description: >
+    REST API contract for the 3D ULPIN integration and review workflow.
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+
+  /api/v1/health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        "200":
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /api/v1/review-queue:
+    get:
+      summary: Get review queue
+      operationId: getReviewQueue
+      responses:
+        "200":
+          description: Review queue items
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - items
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ReviewQueueItem"
+
+  /api/v1/review-queue/{id}/decision:
+    post:
+      summary: Submit a human review decision
+      operationId: submitReviewDecision
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewDecision"
+
+      responses:
+        "200":
+          description: Decision successfully recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDecision"
+
+        "404":
+          description: Review item not found
+
+components:
+
+  schemas:
+
+    ReviewQueueItem:
+      type: object
+      required:
+        - id
+        - discrepancy_report
+        - status
+      properties:
+        id:
+          type: string
+
+        discrepancy_report:
+          type: object
+
+        status:
+          type: string
+          enum:
+            - pending
+            - reviewed
+
+    ReviewDecision:
+      type: object
+      required:
+        - decision
+        - reviewer_id
+        - notes
+      properties:
+        decision:
+          type: string
+          enum:
+            - approved
+            - corrected
+            - rejected
+
+        reviewer_id:
+          type: string
+
+        notes:
+          type: string

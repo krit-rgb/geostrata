@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN Review Decision",
+  "description": "Contract for human review decisions produced by Member 5 and consumed by Member 4.",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "report_id",
+    "decision",
+    "reviewer_id",
+    "notes"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "report_id": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "corrected",
+        "rejected"
+      ]
+    },
+    "reviewer_id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

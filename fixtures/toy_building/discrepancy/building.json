@@ -1,0 +1,47 @@
+{
+  "fixture_id": "TOY-DISCREPANCY-001",
+  "description": "Two-floor toy building with a deliberate footprint discrepancy.",
+  "crs": "LOCAL-TOY-CRS",
+  "vertical_datum": "LOCAL-TOY-DATUM",
+  "building": {
+    "building_id": "BUILDING-001",
+    "official_footprint": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [0, 0],
+          [10, 0],
+          [10, 8],
+          [0, 8],
+          [0, 0]
+        ]
+      ]
+    },
+    "observed_footprint": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [0, 0],
+          [10.5, 0],
+          [10.5, 8],
+          [0, 8],
+          [0, 0]
+        ]
+      ]
+    },
+    "floors": [
+      {
+        "unit_id": "UNIT-001",
+        "floor": 1,
+        "z_min": 0,
+        "z_max": 3
+      },
+      {
+        "unit_id": "UNIT-002",
+        "floor": 2,
+        "z_min": 3,
+        "z_max": 6
+      }
+    ]
+  }
+}

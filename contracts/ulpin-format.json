@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN Format",
+  "description": "Draft contract describing the Parent and Child ULPIN structure.",
+  "type": "object",
+  "required": [
+    "parent_ulpin",
+    "child_ulpin"
+  ],
+  "properties": {
+    "parent_ulpin": {
+      "type": "string",
+      "description": "Immutable 14-digit identifier associated with the land parcel."
+    },
+    "child_ulpin": {
+      "type": "string",
+      "description": "Identifier for an individual floor or unit within the Parent ULPIN."
+    }
+  },
+  "additionalProperties": false
+}

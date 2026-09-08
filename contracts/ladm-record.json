@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN LADM Record",
+  "description": "Draft contract for the permanent record of an approved 3D land unit.",
+  "type": "object",
+  "required": [
+    "ulpin",
+    "owner",
+    "unit_identity",
+    "shape_reference",
+    "approving_reviewer",
+    "approval_date",
+    "version"
+  ],
+  "properties": {
+    "ulpin": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "unit_identity": {
+      "type": "string"
+    },
+    "shape_reference": {
+      "type": "string"
+    },
+    "approving_reviewer": {
+      "type": "string"
+    },
+    "approval_date": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false
+}

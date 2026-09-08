@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN Site Data Package",
+  "description": "Contract for the standardized data package produced by Member 1 and consumed by Members 2 and 3.",
+  "type": "object",
+  "required": [
+    "package_id",
+    "coordinate_reference_system",
+    "vertical_datum",
+    "files"
+  ],
+  "properties": {
+    "package_id": {
+      "type": "string"
+    },
+    "coordinate_reference_system": {
+      "type": "string"
+    },
+    "vertical_datum": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file_id",
+          "path",
+          "format",
+          "authoritative"
+        ],
+        "properties": {
+          "file_id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "tif",
+              "las",
+              "laz",
+              "geojson",
+              "shp",
+              "ifc"
+            ]
+          },
+          "authoritative": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

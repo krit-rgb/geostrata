@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN Validated Polyhedron Package",
+  "description": "Contract for validated 3D floor/unit geometry produced by Member 3 and consumed by Member 4.",
+  "type": "object",
+  "required": [
+    "package_id",
+    "source_package_id",
+    "polyhedra",
+    "geometric_conflicts"
+  ],
+  "properties": {
+    "package_id": {
+      "type": "string"
+    },
+    "source_package_id": {
+      "type": "string"
+    },
+    "polyhedra": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "polyhedron_id",
+          "unit_id",
+          "geometry",
+          "confidence"
+        ],
+        "properties": {
+          "polyhedron_id": {
+            "type": "string"
+          },
+          "unit_id": {
+            "type": "string"
+          },
+          "geometry": {
+            "type": "object"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "geometric_conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "conflict_id",
+          "conflict_type",
+          "polyhedron_ids"
+        ],
+        "properties": {
+          "conflict_id": {
+            "type": "string"
+          },
+          "conflict_type": {
+            "type": "string",
+            "enum": [
+              "overlap",
+              "other"
+            ]
+          },
+          "polyhedron_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN Discrepancy Report",
+  "description": "Contract for discrepancy results produced by Member 3 and consumed by Members 4 and 5.",
+  "type": "object",
+  "required": [
+    "report_id",
+    "polyhedron_id",
+    "status",
+    "human_review_required"
+  ],
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "polyhedron_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "match",
+        "mismatch",
+        "no_existing_record"
+      ]
+    },
+    "difference": {
+      "type": "string"
+    },
+    "human_review_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "3D ULPIN Classified Segment Package",
+  "description": "Contract for AI-classified segments produced by Member 2 and consumed by Member 3.",
+  "type": "object",
+  "required": [
+    "package_id",
+    "source_package_id",
+    "segments",
+    "building_footprints"
+  ],
+  "properties": {
+    "package_id": {
+      "type": "string"
+    },
+    "source_package_id": {
+      "type": "string"
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "segment_id",
+          "label",
+          "confidence"
+        ],
+        "properties": {
+          "segment_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string",
+            "enum": [
+              "roof",
+              "wall",
+              "ground",
+              "building",
+              "other"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "building_footprints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "footprint_id",
+          "geometry"
+        ],
+        "properties": {
+          "footprint_id": {
+            "type": "string"
+          },
+          "geometry": {
+            "type": "object",
+            "required": [
+              "type",
+              "coordinates"
+            ],
+            "properties": {
+              "type": {
+                "const": "Polygon"
+              },
+              "coordinates": {
+                "type": "array"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
