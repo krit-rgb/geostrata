@@ -6,3 +6,20 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app/app
+    environment:
+      DATABASE_URL: postgresql://ulpin:ulpin@db:5432/ulpin
+
+  db:
+    image: postgres:16
+    container_name: geostrata-3d-db
+    environment:
+      POSTGRES_USER: ulpin
+      POSTGRES_PASSWORD: ulpin
+      POSTGRES_DB: ulpin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,7 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
-from app.mock_data.review_queue import MOCK_REVIEW_QUEUE
 from app.schemas.review_decision import ReviewDecision
+from app.schemas.review_queue import ReviewQueueItem
 
 
 router = APIRouter(prefix="/api/v1")
@@ -13,28 +13,37 @@ def health_check():
 
 
 @router.get("/review-queue")
-def get_review_queue():
+def get_review_queue(request: Request):
+    workflow = request.app.state.review_workflow
+
     return {
-        "items": MOCK_REVIEW_QUEUE
+        "items": [
+            item.model_dump()
+            for item in workflow.get_items()
+        ]
     }
 
 
 @router.post("/review-queue/{review_id}/decision")
 def submit_review_decision(
     review_id: str,
-    decision: ReviewDecision
+    decision: ReviewDecision,
+    request: Request,
 ):
-    for item in MOCK_REVIEW_QUEUE:
-        if item["id"] == review_id:
-            item["status"] = "reviewed"
+    workflow = request.app.state.review_workflow
 
-            return {
-                "review_id": review_id,
-                "status": "recorded",
-                "decision": decision.model_dump()
-            }
+    item = workflow.get_item(review_id)
 
-    raise HTTPException(
-        status_code=404,
-        detail="Review item not found"
-    )
+    if item is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Review item not found",
+        )
+
+    reviewed_item = workflow.mark_reviewed(review_id)
+
+    return {
+        "review_id": review_id,
+        "status": reviewed_item.status,
+        "decision": decision.model_dump(),
+    }

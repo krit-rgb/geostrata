@@ -1,3 +1,6 @@
+.env
+
+*.pyc
 # Virtual environment
 .venv/
 
